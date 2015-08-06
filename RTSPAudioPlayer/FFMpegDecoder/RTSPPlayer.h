@@ -16,11 +16,11 @@
 	int videoStream;
     int audioStream;
 	struct SwsContext *img_convert_ctx;
-	int sourceWidth, sourceHeight;
-	int outputWidth, outputHeight;
-	UIImage *currentImage;
-	double duration;
-    double currentTime;
+//	int sourceWidth, sourceHeight;
+//	int outputWidth, outputHeight;
+//	UIImage *currentImage;
+//	double duration;
+//    double currentTime;
     NSLock *audioPacketQueueLock;
     AVCodecContext *_audioCodecContext;
     int16_t *_audioBuffer;
@@ -54,14 +54,8 @@
 @property (nonatomic, assign) int audioPacketQueueSize;
 @property (nonatomic, assign) AVStream *_audioStream;
 
-/* Initialize with movie at moviePath. Output dimensions are set to source dimensions. */
--(id)initWithVideo:(NSString *)moviePath usesTcp:(BOOL)usesTcp;
-
-/* Read the next frame from the video stream. Returns false if no frame read (video over). */
--(BOOL)stepFrame;
-
 /* Seek to closest keyframe near specified time */
--(void)seekTime:(double)seconds;
+//-(void)seekTime:(double)seconds;
 
 -(void)closeAudio;
 

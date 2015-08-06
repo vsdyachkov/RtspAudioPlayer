@@ -119,7 +119,7 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ,
             audioStreamBasicDesc_.mChannelsPerFrame = _audioCodecContext->channels;
             audioStreamBasicDesc_.mBitsPerChannel = 0;
             audioStreamBasicDesc_.mFramesPerPacket =_audioCodecContext->frame_size;
-            audioStreamBasicDesc_.mBytesPerPacket = 0;
+            audioStreamBasicDesc_.mBytesPerPacket = _audioCodecContext->frame_bits;
             audioStreamBasicDesc_.mBytesPerFrame = _audioCodecContext->frame_bits;
             audioStreamBasicDesc_.mReserved = 0;
             NSLog(@"audio format %s (%d) is  supported",  _audioCodecContext->codec_descriptor->name, _audioCodecContext->codec_id);
@@ -258,9 +258,10 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ,
                 buffer->mAudioDataByteSize += packet->size;
                 buffer->mPacketDescriptionCount++;
                 
+                _streamer.audioPacketQueueSize = packet->size;
                 
-                _streamer.audioPacketQueueSize -= packet->size;
-                            
+//                printf("start: %u size: %u\n", (unsigned int)buffer->mAudioDataByteSize, packet->size);
+                
                 av_free_packet(packet);
             }
             else {

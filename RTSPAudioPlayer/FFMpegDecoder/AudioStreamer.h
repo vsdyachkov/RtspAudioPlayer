@@ -4,7 +4,7 @@
 #import "RTSPPlayer.h"
 
 #define kNumAQBufs 3
-#define kAudioBufferSeconds 3
+#define kAudioBufferSeconds 10
 
 typedef enum _AUDIO_STATE {
     AUDIO_STATE_READY           = 0,

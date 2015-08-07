@@ -16,7 +16,6 @@
 		57C0BF271B710D6800854848 /* RtspStreamerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C0BF261B710D6800854848 /* RtspStreamerTests.m */; };
 		57C0BFA51B710DA200854848 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C0BF331B710DA200854848 /* AudioStreamer.m */; };
 		57C0BFA61B710DA200854848 /* RTSPPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C0BF351B710DA200854848 /* RTSPPlayer.m */; };
-		57C0BFA71B710DA200854848 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C0BF371B710DA200854848 /* Utilities.m */; };
 		57C0BFA81B710DA200854848 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BF9E1B710DA200854848 /* libavcodec.a */; };
 		57C0BFA91B710DA200854848 /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BF9F1B710DA200854848 /* libavdevice.a */; };
 		57C0BFAA1B710DA200854848 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFA01B710DA200854848 /* libavfilter.a */; };
@@ -66,8 +65,6 @@
 		57C0BF331B710DA200854848 /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
 		57C0BF341B710DA200854848 /* RTSPPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTSPPlayer.h; sourceTree = "<group>"; };
 		57C0BF351B710DA200854848 /* RTSPPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTSPPlayer.m; sourceTree = "<group>"; };
-		57C0BF361B710DA200854848 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
-		57C0BF371B710DA200854848 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		57C0BF3B1B710DA200854848 /* avcodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avcodec.h; sourceTree = "<group>"; };
 		57C0BF3C1B710DA200854848 /* avfft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avfft.h; sourceTree = "<group>"; };
 		57C0BF3D1B710DA200854848 /* dv_profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dv_profile.h; sourceTree = "<group>"; };
@@ -295,8 +292,6 @@
 				57C0BF331B710DA200854848 /* AudioStreamer.m */,
 				57C0BF341B710DA200854848 /* RTSPPlayer.h */,
 				57C0BF351B710DA200854848 /* RTSPPlayer.m */,
-				57C0BF361B710DA200854848 /* Utilities.h */,
-				57C0BF371B710DA200854848 /* Utilities.m */,
 			);
 			path = FFMpegDecoder;
 			sourceTree = "<group>";
@@ -599,7 +594,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57C0BFA71B710DA200854848 /* Utilities.m in Sources */,
 				57C0BF131B710D6800854848 /* ViewController.m in Sources */,
 				57C0BFA61B710DA200854848 /* RTSPPlayer.m in Sources */,
 				57C0BF101B710D6800854848 /* AppDelegate.m in Sources */,
@@ -734,7 +728,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
 				INFOPLIST_FILE = RtspStreamer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/**";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -747,7 +741,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
 				INFOPLIST_FILE = RtspStreamer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/**";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -807,6 +801,7 @@
 				57C0BF2C1B710D6800854848 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		57C0BF2D1B710D6800854848 /* Build configuration list for PBXNativeTarget "RtspStreamerTests" */ = {
 			isa = XCConfigurationList;
@@ -815,6 +810,7 @@
 				57C0BF2F1B710D6800854848 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

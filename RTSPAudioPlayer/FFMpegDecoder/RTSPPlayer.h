@@ -15,9 +15,9 @@
 @property (nonatomic, retain) NSMutableArray *audioPacketQueue;
 @property (nonatomic, assign) int audioPacketQueueSize;
 
-@property (nonatomic, assign) AVCodecContext *_audioCodecContext;
+@property (nonatomic, assign) AVCodecContext* audioCodecContext;
 @property (nonatomic, assign) AudioQueueBufferRef emptyAudioBuffer;
-@property (nonatomic, assign) AVStream *_audioStream;
+@property (nonatomic, assign) AVStream* audioStream;
 
 - (AVPacket*) readPacket;
 

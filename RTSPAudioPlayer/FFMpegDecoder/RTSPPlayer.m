@@ -12,20 +12,15 @@
 @implementation RTSPPlayer
 {
     int64_t lastPts;
-    int16_t *_audioBuffer;
-    int audioStream;
+    int16_t audioBuffer;
+    int audioStreamNumber;
     NSLock *audioPacketQueueLock;
     
     AudioStreamer *audioController;
     AVPacket packet;
     AVPacket *_packet, _currentPacket;
-    AVStream *_audioStream;
-    AVCodecContext *_audioCodecContext;
     AVFormatContext *pFormatCtx;
 }
-
-
-@synthesize _audioStream,_audioCodecContext;
 
 
 - (id) initWithRtspAudioUrl:(NSString *)url
@@ -44,15 +39,15 @@
     avformat_find_stream_info(pFormatCtx, NULL);
     
     // Find the first audio stream
-    audioStream = -1;
+    audioStreamNumber = -1;
 
     for (int i=0; i < pFormatCtx->nb_streams; i++) {
         if (pFormatCtx->streams[i]->codec->codec_type==AVMEDIA_TYPE_AUDIO) {
-            audioStream=i;
+            audioStreamNumber=i;
         }
     }
     
-    if (audioStream > -1) {
+    if (audioStreamNumber > -1) {
         [self setupAudioDecoder];
     }
 
@@ -84,9 +79,10 @@
 {
     NSLog(@"Playing ...");
     
+
     while (av_read_frame(pFormatCtx, &packet) >=0 ) {
         
-        if (packet.stream_index == audioStream) {
+        if (packet.stream_index == audioStreamNumber) {
             
             [audioPacketQueueLock lock];
             self.audioPacketQueueSize += packet.size;
@@ -105,22 +101,23 @@
 
 - (void) setupAudioDecoder
 {    
-    if (audioStream >= 0) {
-        _audioBuffer = av_malloc(AVCODEC_MAX_AUDIO_FRAME_SIZE);
+    if (audioStreamNumber >= 0)
+    {
+        audioBuffer = av_malloc(AVCODEC_MAX_AUDIO_FRAME_SIZE);
         
-        _audioCodecContext = pFormatCtx->streams[audioStream]->codec;
-        _audioStream = pFormatCtx->streams[audioStream];
+        self.audioCodecContext = pFormatCtx->streams[audioStreamNumber]->codec;
+        _audioStream = pFormatCtx->streams[audioStreamNumber];
         
-        AVCodec *codec = avcodec_find_decoder(_audioCodecContext->codec_id);
-        avcodec_open2(_audioCodecContext, codec, NULL);
+        AVCodec *codec = avcodec_find_decoder(self.audioCodecContext->codec_id);
+        avcodec_open2(self.audioCodecContext, codec, NULL);
         
         self.audioPacketQueue = [NSMutableArray new];
         audioPacketQueueLock = [NSLock new];
         audioController = [[AudioStreamer alloc] initWithStreamer:self];
         [audioController startAudio];
     } else {
-        pFormatCtx->streams[audioStream]->discard = AVDISCARD_ALL;
-        audioStream = -1;
+        pFormatCtx->streams[audioStreamNumber]->discard = AVDISCARD_ALL;
+        audioStreamNumber = -1;
     }
 }
 
@@ -138,8 +135,8 @@
     
     if (_packet)
     {
-        _packet->dts += av_rescale_q(0, AV_TIME_BASE_Q, _audioStream->time_base);
-        _packet->pts += av_rescale_q(0, AV_TIME_BASE_Q, _audioStream->time_base);
+        _packet->dts += av_rescale_q(0, AV_TIME_BASE_Q, self.audioStream->time_base);
+        _packet->pts += av_rescale_q(0, AV_TIME_BASE_Q, self.audioStream->time_base);
         
         [audioPacketQueueLock lock];
         self.audioPacketQueueSize -= _packet->size;

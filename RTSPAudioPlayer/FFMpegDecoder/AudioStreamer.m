@@ -22,7 +22,7 @@
         AVAudioSession *audioSession = [AVAudioSession sharedInstance];
         [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
         streamer = audioStreamer;
-        self.audioCodecContext = audioStreamer._audioCodecContext;
+        self.audioCodecContext = audioStreamer.audioCodecContext;
     }
     
     return  self;
@@ -72,22 +72,22 @@
     state = AUDIO_STATE_PLAYING;
 }
 
-- (void)removeAudioQueue
-{
-    AudioQueueStop(audioQueue, YES);
-    state = AUDIO_STATE_STOP;
-
-    for (NSInteger i = 0; i < kNumAQBufs; ++i) {
-      AudioQueueFreeBuffer(audioQueue, audioQueueBuffer[i]);
-    }
-    
-    AudioQueueDispose(audioQueue, YES);
-    
-    if (decodeLock) {
-        [decodeLock unlock];
-        decodeLock = nil;
-    }
-}
+//- (void)removeAudioQueue
+//{
+//    AudioQueueStop(audioQueue, YES);
+//    state = AUDIO_STATE_STOP;
+//
+//    for (NSInteger i = 0; i < kNumAQBufs; ++i) {
+//      AudioQueueFreeBuffer(audioQueue, audioQueueBuffer[i]);
+//    }
+//    
+//    AudioQueueDispose(audioQueue, YES);
+//    
+//    if (decodeLock) {
+//        [decodeLock unlock];
+//        decodeLock = nil;
+//    }
+//}
 
 // c header
 

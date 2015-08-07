@@ -29,6 +29,6 @@
 - (id) initWithRtspAudioUrl:(NSString *)url;
 
 /* Play audio in main thread */
-- (BOOL) play;
+- (void) play;
 
 @end

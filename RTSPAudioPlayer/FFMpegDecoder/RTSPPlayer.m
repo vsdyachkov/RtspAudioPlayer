@@ -15,7 +15,6 @@
     int16_t *_audioBuffer;
     int audioStream;
     NSLock *audioPacketQueueLock;
-    BOOL _inBuffer;
     
     AudioStreamer *audioController;
     AVPacket packet;
@@ -42,7 +41,7 @@
     avformat_open_input(&pFormatCtx, [url UTF8String], NULL, 0);
     
     // Get stream information
-    avformat_find_stream_info(pFormatCtx,NULL);
+    avformat_find_stream_info(pFormatCtx, NULL);
     
     // Find the first audio stream
     audioStream = -1;
@@ -81,42 +80,33 @@
     NSLog(@"release");
 }
 
-- (BOOL) play
+- (void) play
 {
     NSLog(@"Playing ...");
     
-	// AVPacket packet;
-    int frameFinished=0;
-	@try {
-	    while (!frameFinished && av_read_frame(pFormatCtx, &packet) >=0 ) {
-	        
-	        if (packet.stream_index==audioStream) {
-                
-	            [audioPacketQueueLock lock];
-	            self.audioPacketQueueSize += packet.size;
-                NSData* data = [NSMutableData dataWithBytes:&packet length:sizeof(packet)];
-	            [self.audioPacketQueue addObject:data];
-	            [audioPacketQueueLock unlock];
+    while (av_read_frame(pFormatCtx, &packet) >=0 ) {
+        
+        if (packet.stream_index == audioStream) {
+            
+            [audioPacketQueueLock lock];
+            self.audioPacketQueueSize += packet.size;
+            NSData* data = [NSMutableData dataWithBytes:&packet length:sizeof(packet)];
+            [self.audioPacketQueue addObject:data];
+            [audioPacketQueueLock unlock];
 
-	            if (audioController != nil && self.emptyAudioBuffer) {
-	                [audioController enqueueBuffer:self.emptyAudioBuffer];
-                }
-	        }
-		}
+            if (audioController != nil && self.emptyAudioBuffer) {
+                [audioController enqueueBuffer:self.emptyAudioBuffer];
+            }
+        }
     }
-    @catch (NSException *exception) {
-        frameFinished = 0;
-        NSLog(@"avcodec_decode_video2 %@", exception);
-    }
-	return frameFinished!=0;
+
+	return;
 }
 
 - (void) setupAudioDecoder
 {    
-    if (audioStream >= 0)
-    {
+    if (audioStream >= 0) {
         _audioBuffer = av_malloc(AVCODEC_MAX_AUDIO_FRAME_SIZE);
-        _inBuffer = NO;
         
         _audioCodecContext = pFormatCtx->streams[audioStream]->codec;
         _audioStream = pFormatCtx->streams[audioStream];
@@ -136,7 +126,7 @@
 
 - (AVPacket*)readPacket
 {
-    if (_currentPacket.size > 0 || _inBuffer)
+    if (_currentPacket.size > 0)
         return &_currentPacket;
     
     NSMutableData *packetData = [self.audioPacketQueue objectAtIndex:0];

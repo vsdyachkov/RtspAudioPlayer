@@ -13,7 +13,7 @@
 		57C0BF161B710D6800854848 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57C0BF141B710D6800854848 /* Main.storyboard */; };
 		57C0BF181B710D6800854848 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57C0BF171B710D6800854848 /* Images.xcassets */; };
 		57C0BF1B1B710D6800854848 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57C0BF191B710D6800854848 /* LaunchScreen.xib */; };
-		57C0BFA61B710DA200854848 /* RTSPPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C0BF351B710DA200854848 /* RTSPPlayer.m */; };
+		57C0BFA61B710DA200854848 /* RtspAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C0BF351B710DA200854848 /* RtspAudioPlayer.m */; };
 		57C0BFA81B710DA200854848 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BF9E1B710DA200854848 /* libavcodec.a */; };
 		57C0BFA91B710DA200854848 /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BF9F1B710DA200854848 /* libavdevice.a */; };
 		57C0BFAA1B710DA200854848 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFA01B710DA200854848 /* libavfilter.a */; };
@@ -46,8 +46,8 @@
 		57C0BF151B710D6800854848 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		57C0BF171B710D6800854848 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		57C0BF1A1B710D6800854848 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		57C0BF341B710DA200854848 /* RTSPPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTSPPlayer.h; sourceTree = "<group>"; };
-		57C0BF351B710DA200854848 /* RTSPPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTSPPlayer.m; sourceTree = "<group>"; };
+		57C0BF341B710DA200854848 /* RtspAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RtspAudioPlayer.h; sourceTree = "<group>"; };
+		57C0BF351B710DA200854848 /* RtspAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RtspAudioPlayer.m; sourceTree = "<group>"; };
 		57C0BF3B1B710DA200854848 /* avcodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avcodec.h; sourceTree = "<group>"; };
 		57C0BF3C1B710DA200854848 /* avfft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avfft.h; sourceTree = "<group>"; };
 		57C0BF3D1B710DA200854848 /* dv_profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dv_profile.h; sourceTree = "<group>"; };
@@ -245,8 +245,8 @@
 		57C0BF311B710DA200854848 /* FFMpegDecoder */ = {
 			isa = PBXGroup;
 			children = (
-				57C0BF341B710DA200854848 /* RTSPPlayer.h */,
-				57C0BF351B710DA200854848 /* RTSPPlayer.m */,
+				57C0BF341B710DA200854848 /* RtspAudioPlayer.h */,
+				57C0BF351B710DA200854848 /* RtspAudioPlayer.m */,
 			);
 			path = FFMpegDecoder;
 			sourceTree = "<group>";
@@ -520,7 +520,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				57C0BF131B710D6800854848 /* ViewController.m in Sources */,
-				57C0BFA61B710DA200854848 /* RTSPPlayer.m in Sources */,
+				57C0BFA61B710DA200854848 /* RtspAudioPlayer.m in Sources */,
 				57C0BF101B710D6800854848 /* AppDelegate.m in Sources */,
 				57C0BF0D1B710D6800854848 /* main.m in Sources */,
 			);

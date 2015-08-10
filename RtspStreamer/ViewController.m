@@ -7,11 +7,11 @@
 //
 
 #import "ViewController.h"
-#import "RTSPPlayer.h"
+#import "RtspAudioPlayer.h"
 
 @implementation ViewController
 {
-    RTSPPlayer *player;
+    RtspAudioPlayer *player;
 }
 
 - (void)viewDidLoad
@@ -30,7 +30,7 @@
     player = nil;
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        player = [[RTSPPlayer alloc] initWithRtspAudioUrl:@"rtsp://192.168.1.30:1935/live/myStream"];
+        player = [[RtspAudioPlayer alloc] initWithUrl:@"rtsp://192.168.1.30:1935/live/myStream"];
         [player play];
         NSLog(@"Finished play");
     });

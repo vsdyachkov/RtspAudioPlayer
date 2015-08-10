@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RTSPPlayer : NSObject
+@interface RtspAudioPlayer : NSObject
 
-- (id) initWithRtspAudioUrl:(NSString *)url;
+- (id) initWithUrl:(NSString *)url;
 - (void) play;
 
 @end

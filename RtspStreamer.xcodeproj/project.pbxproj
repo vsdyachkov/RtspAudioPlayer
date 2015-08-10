@@ -13,8 +13,6 @@
 		57C0BF161B710D6800854848 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57C0BF141B710D6800854848 /* Main.storyboard */; };
 		57C0BF181B710D6800854848 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57C0BF171B710D6800854848 /* Images.xcassets */; };
 		57C0BF1B1B710D6800854848 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57C0BF191B710D6800854848 /* LaunchScreen.xib */; };
-		57C0BF271B710D6800854848 /* RtspStreamerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C0BF261B710D6800854848 /* RtspStreamerTests.m */; };
-		57C0BFA51B710DA200854848 /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C0BF331B710DA200854848 /* AudioStreamer.m */; };
 		57C0BFA61B710DA200854848 /* RTSPPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C0BF351B710DA200854848 /* RTSPPlayer.m */; };
 		57C0BFA81B710DA200854848 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BF9E1B710DA200854848 /* libavcodec.a */; };
 		57C0BFA91B710DA200854848 /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BF9F1B710DA200854848 /* libavdevice.a */; };
@@ -37,16 +35,6 @@
 		57C0BFC91B7113B700854848 /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFC81B7113B700854848 /* libbz2.dylib */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		57C0BF211B710D6800854848 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57C0BEFF1B710D6800854848 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C0BF061B710D6800854848;
-			remoteInfo = RtspStreamer;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		57C0BF071B710D6800854848 /* RtspStreamer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RtspStreamer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57C0BF0B1B710D6800854848 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -58,11 +46,6 @@
 		57C0BF151B710D6800854848 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		57C0BF171B710D6800854848 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		57C0BF1A1B710D6800854848 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		57C0BF201B710D6800854848 /* RtspStreamerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RtspStreamerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		57C0BF251B710D6800854848 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		57C0BF261B710D6800854848 /* RtspStreamerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RtspStreamerTests.m; sourceTree = "<group>"; };
-		57C0BF321B710DA200854848 /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
-		57C0BF331B710DA200854848 /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
 		57C0BF341B710DA200854848 /* RTSPPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTSPPlayer.h; sourceTree = "<group>"; };
 		57C0BF351B710DA200854848 /* RTSPPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTSPPlayer.m; sourceTree = "<group>"; };
 		57C0BF3B1B710DA200854848 /* avcodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avcodec.h; sourceTree = "<group>"; };
@@ -205,13 +188,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		57C0BF1D1B710D6800854848 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -220,7 +196,6 @@
 			children = (
 				57C0BF091B710D6800854848 /* RtspStreamer */,
 				57C0BF301B710DA200854848 /* RTSPAudioPlayer */,
-				57C0BF231B710D6800854848 /* RtspStreamerTests */,
 				57C0BF081B710D6800854848 /* Products */,
 				57C0BFAF1B7111C400854848 /* Frameworks */,
 			);
@@ -230,7 +205,6 @@
 			isa = PBXGroup;
 			children = (
 				57C0BF071B710D6800854848 /* RtspStreamer.app */,
-				57C0BF201B710D6800854848 /* RtspStreamerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -259,23 +233,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		57C0BF231B710D6800854848 /* RtspStreamerTests */ = {
-			isa = PBXGroup;
-			children = (
-				57C0BF261B710D6800854848 /* RtspStreamerTests.m */,
-				57C0BF241B710D6800854848 /* Supporting Files */,
-			);
-			path = RtspStreamerTests;
-			sourceTree = "<group>";
-		};
-		57C0BF241B710D6800854848 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				57C0BF251B710D6800854848 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		57C0BF301B710DA200854848 /* RTSPAudioPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,8 +245,6 @@
 		57C0BF311B710DA200854848 /* FFMpegDecoder */ = {
 			isa = PBXGroup;
 			children = (
-				57C0BF321B710DA200854848 /* AudioStreamer.h */,
-				57C0BF331B710DA200854848 /* AudioStreamer.m */,
 				57C0BF341B710DA200854848 /* RTSPPlayer.h */,
 				57C0BF351B710DA200854848 /* RTSPPlayer.m */,
 			);
@@ -514,24 +469,6 @@
 			productReference = 57C0BF071B710D6800854848 /* RtspStreamer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		57C0BF1F1B710D6800854848 /* RtspStreamerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 57C0BF2D1B710D6800854848 /* Build configuration list for PBXNativeTarget "RtspStreamerTests" */;
-			buildPhases = (
-				57C0BF1C1B710D6800854848 /* Sources */,
-				57C0BF1D1B710D6800854848 /* Frameworks */,
-				57C0BF1E1B710D6800854848 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				57C0BF221B710D6800854848 /* PBXTargetDependency */,
-			);
-			name = RtspStreamerTests;
-			productName = RtspStreamerTests;
-			productReference = 57C0BF201B710D6800854848 /* RtspStreamerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -543,10 +480,6 @@
 				TargetAttributes = {
 					57C0BF061B710D6800854848 = {
 						CreatedOnToolsVersion = 6.4;
-					};
-					57C0BF1F1B710D6800854848 = {
-						CreatedOnToolsVersion = 6.4;
-						TestTargetID = 57C0BF061B710D6800854848;
 					};
 				};
 			};
@@ -564,7 +497,6 @@
 			projectRoot = "";
 			targets = (
 				57C0BF061B710D6800854848 /* RtspStreamer */,
-				57C0BF1F1B710D6800854848 /* RtspStreamerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -580,13 +512,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		57C0BF1E1B710D6800854848 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -598,27 +523,10 @@
 				57C0BFA61B710DA200854848 /* RTSPPlayer.m in Sources */,
 				57C0BF101B710D6800854848 /* AppDelegate.m in Sources */,
 				57C0BF0D1B710D6800854848 /* main.m in Sources */,
-				57C0BFA51B710DA200854848 /* AudioStreamer.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		57C0BF1C1B710D6800854848 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				57C0BF271B710D6800854848 /* RtspStreamerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		57C0BF221B710D6800854848 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C0BF061B710D6800854848 /* RtspStreamer */;
-			targetProxy = 57C0BF211B710D6800854848 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		57C0BF141B710D6800854848 /* Main.storyboard */ = {
@@ -731,7 +639,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/**";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = RtspStreamer;
 			};
 			name = Debug;
 		};
@@ -744,41 +652,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/**";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		57C0BF2E1B710D6800854848 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = RtspStreamerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RtspStreamer.app/RtspStreamer";
-			};
-			name = Debug;
-		};
-		57C0BF2F1B710D6800854848 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = RtspStreamerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RtspStreamer.app/RtspStreamer";
+				PRODUCT_NAME = RtspStreamer;
 			};
 			name = Release;
 		};
@@ -799,15 +673,6 @@
 			buildConfigurations = (
 				57C0BF2B1B710D6800854848 /* Debug */,
 				57C0BF2C1B710D6800854848 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		57C0BF2D1B710D6800854848 /* Build configuration list for PBXNativeTarget "RtspStreamerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				57C0BF2E1B710D6800854848 /* Debug */,
-				57C0BF2F1B710D6800854848 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "57C0BF1F1B710D6800854848"
-               BuildableName = "RtspStreamerTests.xctest"
-               BlueprintName = "RtspStreamerTests"
+               BuildableName = "Copy RtspStreamerTests.xctest"
+               BlueprintName = "Copy RtspStreamerTests"
                ReferencedContainer = "container:RtspStreamer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,8 +47,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "57C0BF1F1B710D6800854848"
-               BuildableName = "RtspStreamerTests.xctest"
-               BlueprintName = "RtspStreamerTests"
+               BuildableName = "Copy RtspStreamerTests.xctest"
+               BlueprintName = "Copy RtspStreamerTests"
                ReferencedContainer = "container:RtspStreamer.xcodeproj">
             </BuildableReference>
          </TestableReference>

@@ -1,7 +1,6 @@
 # RTSP-iOS-audio-streaming
 
-RTSP audio stream player client for iOS with ffmpeg. 
+RTSP player client for iOS, designed for Wowza Streaming Engine audio only streams
 
-Project based on https://github.com/maiconpeixinho/DFURTSPPlayer
-
-This project uses slightly modified classes from "mooncatventures-group" (https://github.com/mooncatventures-group).
+This app use ffmpeg.
+Project based on [DFURTSPPlayer](https://github.com/maiconpeixinho/DFURTSPPlayer) and modified classes from [mooncatventures-group](https://github.com/mooncatventures-group)

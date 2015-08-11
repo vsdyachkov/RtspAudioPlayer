@@ -119,8 +119,11 @@ AudioQueueRef audioQueue;
     // Do global initialization of network components
     avformat_network_init();
     
+    AVDictionary *opts = 0;
+    av_dict_set(&opts, "rtsp_transport", "tcp", 0);
+    
     // Open an input stream and read the header
-    if (avformat_open_input(&pFormatCtx, [url UTF8String], NULL, 0) != 0)
+    if (avformat_open_input(&pFormatCtx, [url UTF8String], NULL, &opts) != 0)
     {
         NSLog(@"Connection failure, stream not started?");
         return nil;
@@ -271,12 +274,12 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ, AudioQu
     
     if (_packet && llabs(lastPts - _packet->pts) > _packet->duration * 2)
     {
-        NSLog(@"Missed more then 3 packets, need restart");
+        NSLog(@"Missed more then 2 packets, need restart");
         
 //        Disposes of an audio queue buffers
-        for (NSInteger i = 0; i < kNumAQBufs; ++i) {
-            AudioQueueFreeBuffer(audioQueue, audioQueueBuffer[i]);
-        }
+//        for (NSInteger i = 0; i < kNumAQBufs; ++i) {
+//            AudioQueueFreeBuffer(audioQueue, audioQueueBuffer[i]);
+//        }
 //        audioPacketQueue = nil;
 //        state = AUDIO_STATE_STOP;
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"restartStream" object:nil];

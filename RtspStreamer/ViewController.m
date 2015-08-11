@@ -40,7 +40,7 @@
 - (void) connectStream
 {
     NSLog(@"Connect");
-    player = [[RtspAudioPlayer alloc] initWithUrl:@"rtsp://192.168.1.30:1935/live/myStream2"];
+    player = [[RtspAudioPlayer alloc] initWithUrl:@"rtsp://192.168.1.30:1935/live/myStream"];
     [player play];
     NSLog(@"Finished play");
     player = [RtspAudioPlayer new];

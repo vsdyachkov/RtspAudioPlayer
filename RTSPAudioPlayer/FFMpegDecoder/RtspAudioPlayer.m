@@ -14,8 +14,8 @@
 # define AVCODEC_MAX_AUDIO_FRAME_SIZE 192000 // 1 second of 48khz 32bit audio
 #endif
 
-#define kNumAQBufs 100
-#define kAudioBufferSeconds 100
+#define kNumAQBufs 1
+#define kAudioBufferSeconds 64
 
 typedef enum _AUDIO_STATE {
     AUDIO_STATE_READY   = 0,
@@ -49,59 +49,36 @@ AudioQueueRef audioQueue;
     AudioStreamBasicDescription audioStreamBasicDesc;
     AudioQueueBufferRef emptyAudioBuffer;
     AudioQueueBufferRef audioQueueBuffer[kNumAQBufs];
+    
+    BOOL stop;
 }
 
 - (void) dealloc
 {
-    state = AUDIO_STATE_STOP;
+    NSLog(@"DEALLOC");
     
-    //Removes a listener callback for a property
-    AudioQueueRemovePropertyListener(audioQueue, kAudioQueueProperty_IsRunning, audioQueueIsRunningCallback, (__bridge void*)self);
     
-    // Stops playing or recording audio
-    //    AudioQueueStop(audioQueue, false);
+    // Free the packet that was allocated by av_read_frame
+    av_free_packet(&packet);
     
-    // Disposes of an audio queue buffers
-    //    for (NSInteger i = 0; i < kNumAQBufs; ++i) {
-    //        AudioQueueFreeBuffer(audioQueue, audioQueueBuffer[i]);
-    //    }
-    
-    // Disposes an existing audio queue
-    AudioQueueDispose(audioQueue, false);
-    
-    //    free(&audioStreamBasicDesc);
+    // Close the codec
+    //if (pCodecCtx) avcodec_close(pCodecCtx);
     
     // Close the video file
-//    pFormatCtx->streams[audioStreamNumber]->discard = AVDISCARD_ALL;
-    audioStreamNumber = -1;
+    if (pFormatCtx) avformat_close_input(&pFormatCtx);
     
-    // Free a packets
-    //    av_free_packet(&packet);
-    //    if (&currentPacket) av_free_packet(&currentPacket);
-    //    av_free_packet(_packet);
+    AudioQueueRemovePropertyListener(audioQueue, kAudioQueueProperty_IsRunning, audioQueueIsRunningCallback, (__bridge void*)self);
+    AudioQueueStop(audioQueue, YES);
+    state = AUDIO_STATE_STOP;
     
-    audioPacketQueueSize = 0;
     
-    decodeLock = nil;
-    audioPacketQueueLock = nil;
+
+    
     audioPacketQueue = nil;
+    //audioPacketQueueLock = nil;
     
-    //  Close an opened input AVFormatContext. Free it and all its contents and sets to NULL
-    avformat_close_input(&pFormatCtx);
-    
-    // Close a given AVCodecContext and free all the data associated with it
-    //    avcodec_close(audioCodecContext);
-    
-    audioStream = nil;
-    audioCodecContext = nil;
-    
-    // Free a memory block which has been allocated with av_malloc(z)() or av_realloc().
-    //    av_free(&audioBuffer);
-    
-    // Undo the initialization done by avformat_network_init
-    avformat_network_deinit();
-    
-    NSLog(@"Release");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"restartStream" object:nil];
+    NSLog(@"RELEASE");
 }
 
 
@@ -198,8 +175,11 @@ AudioQueueRef audioQueue;
         if (AudioQueueStart(audioQueue, NULL) != noErr) NSLog(@"AudioQueueStart error");
         
         for (NSInteger i = 0; i < kNumAQBufs; ++i) {
+            //NSLog(@" Before %d - %ld", audioQueueBuffer[i]->mAudioData == NULL, i);
             [self enqueueBuffer:audioQueueBuffer[i]];
+            //NSLog(@" After %d - %ld", audioQueueBuffer[i]->mAudioData == NULL, i);
         }
+        
         
         state = AUDIO_STATE_READY;
     }
@@ -208,10 +188,11 @@ AudioQueueRef audioQueue;
 - (void) play
 {
     NSLog(@"Playing ...");
+    //NSLog(@"BAD POINT %d", emptyAudioBuffer->mAudioData == NULL);
     
     state = AUDIO_STATE_PLAYING;
     
-    while (state == AUDIO_STATE_PLAYING && av_read_frame(pFormatCtx, &packet) >= 0)
+    while (state == AUDIO_STATE_PLAYING && av_read_frame(pFormatCtx, &packet) >= 0 && !stop)
     {
         [audioPacketQueueLock lock];
         audioPacketQueueSize += packet.size;
@@ -220,6 +201,7 @@ AudioQueueRef audioQueue;
         [audioPacketQueueLock unlock];
         
         if (emptyAudioBuffer && state == AUDIO_STATE_PLAYING) {
+            //NSLog(@"FINAL %d", emptyAudioBuffer->mAudioData == NULL);
             [self enqueueBuffer:emptyAudioBuffer];
         }
     }
@@ -231,6 +213,7 @@ AudioQueueRef audioQueue;
 
 void audioQueueOutputCallback(void *inClientData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer)
 {
+    //NSLog(@"Output");
     if (state == AUDIO_STATE_PLAYING) {
         [selfClass enqueueBuffer:inBuffer];
     }
@@ -238,6 +221,7 @@ void audioQueueOutputCallback(void *inClientData, AudioQueueRef inAQ, AudioQueue
 
 void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ, AudioQueuePropertyID inID)
 {
+    NSLog(@"QUEUE is RUNNING");
     UInt32 isRunning;
     UInt32 size = sizeof(isRunning);
     if (AudioQueueGetProperty(audioQueue, kAudioQueueProperty_IsRunning, &isRunning, &size) != noErr) NSLog(@"AudioQueueGetProperty error");
@@ -245,6 +229,7 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ, AudioQu
 
 - (AVPacket*)readPacket
 {
+    //NSLog(@"Read Packet");
     if (currentPacket.size > 0)
         return &currentPacket;
     
@@ -275,14 +260,14 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ, AudioQu
     if (_packet && llabs(lastPts - _packet->pts) > _packet->duration * 2)
     {
         NSLog(@"Missed more then 2 packets, need restart");
-        
 //        Disposes of an audio queue buffers
 //        for (NSInteger i = 0; i < kNumAQBufs; ++i) {
 //            AudioQueueFreeBuffer(audioQueue, audioQueueBuffer[i]);
 //        }
 //        audioPacketQueue = nil;
 //        state = AUDIO_STATE_STOP;
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"restartStream" object:nil];
+        stop = YES;
+        //[[NSNotificationCenter defaultCenter] postNotificationName:@"restartStream" object:nil];
     }
     
     if (_packet) {
@@ -319,7 +304,7 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ, AudioQu
                     bufferStartTime.mSampleTime = tempPacket->dts * audioCodecContext->frame_size;
                     bufferStartTime.mFlags = kAudioTimeStampSampleTimeValid;
                 }
-                
+                //NSLog(@"%d", buffer->mAudioData == NULL);
                 memcpy(buffer->mAudioData + buffer->mAudioDataByteSize, tempPacket->data, tempPacket->size);
                 buffer->mPacketDescriptions[buffer->mPacketDescriptionCount].mStartOffset = buffer->mAudioDataByteSize;
                 buffer->mPacketDescriptions[buffer->mPacketDescriptionCount].mDataByteSize = tempPacket->size;

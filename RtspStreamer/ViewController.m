@@ -12,42 +12,30 @@
 @implementation ViewController
 {
     RtspAudioPlayer *player;
+    BOOL isPlaying;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectStream) name:@"restartStream" object:nil];
-    
-    player = nil;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(restartStream) name:@"restartStream" object:nil];
     [self connectStream];
 }
 
-- (void) reconnectStream
+- (void)connectStream
 {
-    if (!player) {
-        [self connectStream];
-    } else {
-        player = nil;
-        NSLog(@"Reconnect after 10 sec ...");
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self connectStream];
-        });
-    }
-}
-
-- (void) connectStream
-{
-    NSLog(@"Connect");
     player = [[RtspAudioPlayer alloc] initWithUrl:@"rtsp://192.168.1.30:1935/live/myStream"];
     [player play];
-    NSLog(@"Finished play");
-    player = [RtspAudioPlayer new];
-    [self reconnectStream];
+    player = nil;
 }
 
-
+- (void)restartStream
+{
+    //dispatch_async(dispatch_get_main_queue(), ^{
+         [self connectStream];
+    //});
+}
 
 
 @end

@@ -14,8 +14,8 @@
 # define AVCODEC_MAX_AUDIO_FRAME_SIZE 192000 // 1 second of 48khz 32bit audio
 #endif
 
-#define kNumAQBufs 3
-#define kAudioBufferSeconds 3
+#define kNumAQBufs 100
+#define kAudioBufferSeconds 100
 
 typedef enum _AUDIO_STATE {
     AUDIO_STATE_READY   = 0,
@@ -72,7 +72,7 @@ AudioQueueRef audioQueue;
     //    free(&audioStreamBasicDesc);
     
     // Close the video file
-    pFormatCtx->streams[audioStreamNumber]->discard = AVDISCARD_ALL;
+//    pFormatCtx->streams[audioStreamNumber]->discard = AVDISCARD_ALL;
     audioStreamNumber = -1;
     
     // Free a packets
@@ -257,6 +257,7 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ, AudioQu
         _packet->dts += av_rescale_q(0, AV_TIME_BASE_Q, audioStream->time_base);
         _packet->pts += av_rescale_q(0, AV_TIME_BASE_Q, audioStream->time_base);
         
+//        NSLog(@"dts: %lld, pts: %lld", _packet->dts, _packet->pts);
         
         audioPacketQueueSize -= _packet->size;
         [audioPacketQueueLock lock];
@@ -270,10 +271,15 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ, AudioQu
     
     if (_packet && llabs(lastPts - _packet->pts) > _packet->duration * 2)
     {
-        NSLog(@"Disconnect found !!! Need restart");
-        //        audioPacketQueue = nil;
-        state = AUDIO_STATE_STOP;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"restartStream" object:nil];
+        NSLog(@"Missed more then 3 packets, need restart");
+        
+//        Disposes of an audio queue buffers
+        for (NSInteger i = 0; i < kNumAQBufs; ++i) {
+            AudioQueueFreeBuffer(audioQueue, audioQueueBuffer[i]);
+        }
+//        audioPacketQueue = nil;
+//        state = AUDIO_STATE_STOP;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"restartStream" object:nil];
     }
     
     if (_packet) {
@@ -311,7 +317,7 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ, AudioQu
                     bufferStartTime.mFlags = kAudioTimeStampSampleTimeValid;
                 }
                 
-                memcpy((uint8_t *)buffer->mAudioData + buffer->mAudioDataByteSize, tempPacket->data, tempPacket->size);
+                memcpy(buffer->mAudioData + buffer->mAudioDataByteSize, tempPacket->data, tempPacket->size);
                 buffer->mPacketDescriptions[buffer->mPacketDescriptionCount].mStartOffset = buffer->mAudioDataByteSize;
                 buffer->mPacketDescriptions[buffer->mPacketDescriptionCount].mDataByteSize = tempPacket->size;
                 buffer->mPacketDescriptions[buffer->mPacketDescriptionCount].mVariableFramesInPacket = audioCodecContext->frame_size;

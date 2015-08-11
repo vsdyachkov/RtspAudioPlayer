@@ -15,7 +15,7 @@
 #endif
 
 #define kNumAQBufs 1
-#define kAudioBufferSeconds 64
+#define kAudioBufferSeconds 8
 
 typedef enum _AUDIO_STATE {
     AUDIO_STATE_READY   = 0,

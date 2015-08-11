@@ -13,14 +13,18 @@
 {
     RtspAudioPlayer *player;
     BOOL isPlaying;
+    dispatch_queue_t queue;
+    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    queue = dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(restartStream) name:@"restartStream" object:nil];
-    [self connectStream];
+    dispatch_async(queue, ^{
+        [self connectStream];
+    });
 }
 
 - (void)connectStream
@@ -32,9 +36,9 @@
 
 - (void)restartStream
 {
-    //dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(queue, ^{
          [self connectStream];
-    //});
+    });
 }
 
 

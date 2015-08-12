@@ -11,11 +11,12 @@
 #import "avformat.h"
 
 #ifndef AVCODEC_MAX_AUDIO_FRAME_SIZE
-# define AVCODEC_MAX_AUDIO_FRAME_SIZE 192000 // 1 second of 48khz 32bit audio
+# define AVCODEC_MAX_AUDIO_FRAME_SIZE 192000 // 1 second of 44khz 32bit audio
 #endif
 
 #define kNumAQBufs 1
-#define kAudioBufferSeconds 8
+#define kAudioBufferSeconds 1024
+
 
 typedef enum _AUDIO_STATE {
     AUDIO_STATE_READY   = 0,
@@ -69,10 +70,8 @@ AudioQueueRef audioQueue;
     
     AudioQueueRemovePropertyListener(audioQueue, kAudioQueueProperty_IsRunning, audioQueueIsRunningCallback, (__bridge void*)self);
     AudioQueueStop(audioQueue, YES);
+    AudioQueueDispose(audioQueue, YES);
     state = AUDIO_STATE_STOP;
-    
-    
-
     
     audioPacketQueue = nil;
     //audioPacketQueueLock = nil;
@@ -98,6 +97,7 @@ AudioQueueRef audioQueue;
     
     AVDictionary *opts = 0;
     av_dict_set(&opts, "rtsp_transport", "tcp", 0);
+    av_dict_set(&opts, "buffer_size", "50000", 0);
     
     // Open an input stream and read the header
     if (avformat_open_input(&pFormatCtx, [url UTF8String], NULL, &opts) != 0)
@@ -166,7 +166,7 @@ AudioQueueRef audioQueue;
         for (NSInteger i = 0; i < kNumAQBufs; ++i) {
             if (AudioQueueAllocateBufferWithPacketDescriptions(audioQueue,
                                                                audioStreamBasicDesc.mSampleRate * kAudioBufferSeconds / 8,
-                                                               audioCodecContext->sample_rate * kAudioBufferSeconds / (audioCodecContext->frame_size + 1),
+                                                               audioCodecContext->sample_rate * kAudioBufferSeconds / (audioCodecContext->frame_size),
                                                                &audioQueueBuffer[i]) != noErr) {
                 NSLog(@"AudioQueueAllocateBufferWithPacketDescriptions error");
             }
@@ -175,9 +175,7 @@ AudioQueueRef audioQueue;
         if (AudioQueueStart(audioQueue, NULL) != noErr) NSLog(@"AudioQueueStart error");
         
         for (NSInteger i = 0; i < kNumAQBufs; ++i) {
-            //NSLog(@" Before %d - %ld", audioQueueBuffer[i]->mAudioData == NULL, i);
             [self enqueueBuffer:audioQueueBuffer[i]];
-            //NSLog(@" After %d - %ld", audioQueueBuffer[i]->mAudioData == NULL, i);
         }
         
         
@@ -188,20 +186,33 @@ AudioQueueRef audioQueue;
 - (void) play
 {
     NSLog(@"Playing ...");
-    //NSLog(@"BAD POINT %d", emptyAudioBuffer->mAudioData == NULL);
     
     state = AUDIO_STATE_PLAYING;
     
+    NSDate* intervalDate = [NSDate date];
+    NSMutableData* intervalData = [NSMutableData new];
+    
     while (state == AUDIO_STATE_PLAYING && av_read_frame(pFormatCtx, &packet) >= 0 && !stop)
     {
+        
         [audioPacketQueueLock lock];
         audioPacketQueueSize += packet.size;
         NSData* data = [NSMutableData dataWithBytes:&packet length:sizeof(packet)];
         [audioPacketQueue addObject:data];
         [audioPacketQueueLock unlock];
         
+        [intervalData appendData:data];
+        if ([[NSDate date] timeIntervalSinceDate:intervalDate] >= 1.0) {
+            NSLog(@"Traffic: %.1f kbit/sec", (float)intervalData.length/1000);
+            intervalData = [NSMutableData new];
+            intervalDate = [NSDate date];
+        }
+        
+//        if (audioPacketQueueSize) {
+//            NSLog(@"audioPacketQueueSize: %d", audioPacketQueueSize);
+//        }
+        
         if (emptyAudioBuffer && state == AUDIO_STATE_PLAYING) {
-            //NSLog(@"FINAL %d", emptyAudioBuffer->mAudioData == NULL);
             [self enqueueBuffer:emptyAudioBuffer];
         }
     }
@@ -211,9 +222,19 @@ AudioQueueRef audioQueue;
     return;
 }
 
+//NSTimeInterval  AQPlayer::getTotalDuration()
+//{
+//    UInt64 nPackets;
+//    UInt32 propsize = sizeof(nPackets);
+//    
+//    XThrowIfError (AudioFileGetProperty(mAudioFile, kAudioFilePropertyAudioDataPacketCount, &propsize, &nPackets), "kAudioFilePropertyAudioDataPacketCount");
+//    Float64 fileDuration = (nPackets * mDataFormat.mFramesPerPacket) / mDataFormat.mSampleRate;
+//    
+//    return fileDuration;
+//}
+
 void audioQueueOutputCallback(void *inClientData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer)
 {
-    //NSLog(@"Output");
     if (state == AUDIO_STATE_PLAYING) {
         [selfClass enqueueBuffer:inBuffer];
     }
@@ -229,7 +250,6 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ, AudioQu
 
 - (AVPacket*)readPacket
 {
-    //NSLog(@"Read Packet");
     if (currentPacket.size > 0)
         return &currentPacket;
     
@@ -245,8 +265,6 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ, AudioQu
         _packet->dts += av_rescale_q(0, AV_TIME_BASE_Q, audioStream->time_base);
         _packet->pts += av_rescale_q(0, AV_TIME_BASE_Q, audioStream->time_base);
         
-//        NSLog(@"dts: %lld, pts: %lld", _packet->dts, _packet->pts);
-        
         audioPacketQueueSize -= _packet->size;
         [audioPacketQueueLock lock];
         if ([audioPacketQueue count] > 0) {
@@ -259,15 +277,8 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ, AudioQu
     
     if (_packet && llabs(lastPts - _packet->pts) > _packet->duration * 2)
     {
-        NSLog(@"Missed more then 2 packets, need restart");
-//        Disposes of an audio queue buffers
-//        for (NSInteger i = 0; i < kNumAQBufs; ++i) {
-//            AudioQueueFreeBuffer(audioQueue, audioQueueBuffer[i]);
-//        }
-//        audioPacketQueue = nil;
-//        state = AUDIO_STATE_STOP;
+        NSLog(@"Missed %lld packets", llabs(lastPts - _packet->pts)/1000);
         stop = YES;
-        //[[NSNotificationCenter defaultCenter] postNotificationName:@"restartStream" object:nil];
     }
     
     if (_packet) {

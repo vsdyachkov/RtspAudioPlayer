@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		578D4D4B1B7CF36C00B297A5 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 578D4D4A1B7CF36C00B297A5 /* Reachability.m */; };
 		57C0BF0D1B710D6800854848 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C0BF0C1B710D6800854848 /* main.m */; };
 		57C0BF101B710D6800854848 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C0BF0F1B710D6800854848 /* AppDelegate.m */; };
 		57C0BF131B710D6800854848 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C0BF121B710D6800854848 /* ViewController.m */; };
@@ -34,11 +33,10 @@
 		57C0BFC51B71139800854848 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFC41B71139800854848 /* libiconv.dylib */; };
 		57C0BFC71B7113A000854848 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFC61B7113A000854848 /* libz.dylib */; };
 		57C0BFC91B7113B700854848 /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFC81B7113B700854848 /* libbz2.dylib */; };
+		57F424231B7E036D00D87BF2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F424221B7E036D00D87BF2 /* Reachability.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		578D4D491B7CF36C00B297A5 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		578D4D4A1B7CF36C00B297A5 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		57C0BF071B710D6800854848 /* RtspStreamer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RtspStreamer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57C0BF0B1B710D6800854848 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57C0BF0C1B710D6800854848 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -162,6 +160,8 @@
 		57C0BFC41B71139800854848 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		57C0BFC61B7113A000854848 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		57C0BFC81B7113B700854848 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
+		57F424211B7E036D00D87BF2 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Reachability/Reachability.h; sourceTree = "<group>"; };
+		57F424221B7E036D00D87BF2 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Reachability/Reachability.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,8 +222,6 @@
 				57C0BF141B710D6800854848 /* Main.storyboard */,
 				57C0BF171B710D6800854848 /* Images.xcassets */,
 				57C0BF191B710D6800854848 /* LaunchScreen.xib */,
-				578D4D491B7CF36C00B297A5 /* Reachability.h */,
-				578D4D4A1B7CF36C00B297A5 /* Reachability.m */,
 				57C0BF0A1B710D6800854848 /* Supporting Files */,
 			);
 			path = RtspStreamer;
@@ -243,6 +241,7 @@
 			children = (
 				57C0BF311B710DA200854848 /* FFMpegDecoder */,
 				57C0BF381B710DA200854848 /* FFMpegiOS */,
+				57F424201B7E031F00D87BF2 /* Reachability */,
 			);
 			path = RTSPAudioPlayer;
 			sourceTree = "<group>";
@@ -454,6 +453,15 @@
 			path = RtspStreamer.xcodeproj;
 			sourceTree = "<group>";
 		};
+		57F424201B7E031F00D87BF2 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				57F424211B7E036D00D87BF2 /* Reachability.h */,
+				57F424221B7E036D00D87BF2 /* Reachability.m */,
+			);
+			name = Reachability;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -529,7 +537,7 @@
 				57C0BFA61B710DA200854848 /* RtspAudioPlayer.m in Sources */,
 				57C0BF101B710D6800854848 /* AppDelegate.m in Sources */,
 				57C0BF0D1B710D6800854848 /* main.m in Sources */,
-				578D4D4B1B7CF36C00B297A5 /* Reachability.m in Sources */,
+				57F424231B7E036D00D87BF2 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,7 +659,7 @@
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/**";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.company.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = RtspStreamer;
-				PROVISIONING_PROFILE = "8862a135-eb73-43fc-90d8-d21b36a84cb5";
+				PROVISIONING_PROFILE = "365f6ab8-a7bd-4e88-8f59-114cf427bc91";
 			};
 			name = Debug;
 		};
@@ -668,7 +676,7 @@
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/**";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.company.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = RtspStreamer;
-				PROVISIONING_PROFILE = "8862a135-eb73-43fc-90d8-d21b36a84cb5";
+				PROVISIONING_PROFILE = "365f6ab8-a7bd-4e88-8f59-114cf427bc91";
 			};
 			name = Release;
 		};

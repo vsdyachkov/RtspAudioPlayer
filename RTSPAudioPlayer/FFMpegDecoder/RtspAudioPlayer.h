@@ -19,6 +19,7 @@
 
 - (id) initWithUrl:(NSString *)url;
 - (void) play;
+- (void) stop;
 
 @property (nonatomic, strong) id <RtspAudioPlayerProtocol> delegate;
 

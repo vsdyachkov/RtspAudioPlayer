@@ -9,6 +9,7 @@
 #import "RtspAudioPlayer.h"
 #import <AVFoundation/AVFoundation.h>
 #import "avformat.h"
+#import "Reachability.h"
 
 #ifndef AVCODEC_MAX_AUDIO_FRAME_SIZE
 # define AVCODEC_MAX_AUDIO_FRAME_SIZE 192000 // 1 second of 44khz 32bit audio
@@ -51,6 +52,8 @@ AudioQueueRef audioQueue;
     AudioQueueBufferRef emptyAudioBuffer;
     AudioQueueBufferRef audioQueueBuffer[kNumAQBufs];
     
+    Reachability* reachability;
+    
     BOOL stop;
 }
 
@@ -72,6 +75,7 @@ AudioQueueRef audioQueue;
     audioPacketQueue = nil;
     //audioPacketQueueLock = nil;
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"restartStream" object:nil];
     NSLog(@"RELEASE");
 }
@@ -94,8 +98,8 @@ AudioQueueRef audioQueue;
     AVDictionary *opts = 0;
     av_dict_set(&opts, "rtsp_transport", "tcp", 0);
     av_dict_set(&opts, "rtsp_flags", "prefer_tcp", 0);
-//    av_dict_set(&opts, "stimeout", "1000000", 0); // 1 sec (in microseconds)
-
+    //    av_dict_set(&opts, "stimeout", "1000000", 0); // 1 sec (in microseconds)
+    
     // Open an input stream and read the header
     if (avformat_open_input(&pFormatCtx, [url UTF8String], NULL, &opts) != 0)
     {
@@ -119,7 +123,12 @@ AudioQueueRef audioQueue;
         [self setupAudioDecoder];
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNetworkChange:) name:kReachabilityChangedNotification object:nil];
+    reachability = [Reachability reachabilityForInternetConnection];
+    [reachability startNotifier];
+
     return self;
+    
 }
 
 - (void) setupAudioDecoder
@@ -175,12 +184,11 @@ AudioQueueRef audioQueue;
             [self enqueueBuffer:audioQueueBuffer[i]];
         }
         
-        
         state = AUDIO_STATE_READY;
     }
 }
 
-- (void) play
+- (void) play;
 {
     NSLog(@"Playing ...");
     
@@ -189,7 +197,7 @@ AudioQueueRef audioQueue;
     NSDate* intervalDate = [NSDate date];
     NSMutableData* intervalData = [NSMutableData data];
     
-    while (state == AUDIO_STATE_PLAYING && av_read_frame(pFormatCtx, &packet) >= 0 && !stop)
+    while (state == AUDIO_STATE_PLAYING && av_read_frame(pFormatCtx, &packet) >= 0 && !stop )
     {
         
         [audioPacketQueueLock lock];
@@ -210,11 +218,17 @@ AudioQueueRef audioQueue;
         if (emptyAudioBuffer && state == AUDIO_STATE_PLAYING) {
             [self enqueueBuffer:emptyAudioBuffer];
         }
-    }
+    } 
     
     av_free_packet(&packet);
-    
+
     return;
+}
+
+- (void) stop
+{
+    stop = YES;
+    state = AUDIO_STATE_STOP;
 }
 
 void audioQueueOutputCallback(void *inClientData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer)
@@ -226,7 +240,6 @@ void audioQueueOutputCallback(void *inClientData, AudioQueueRef inAQ, AudioQueue
 
 void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ, AudioQueuePropertyID inID)
 {
-    NSLog(@"QUEUE is RUNNING");
     UInt32 isRunning;
     UInt32 size = sizeof(isRunning);
     if (AudioQueueGetProperty(audioQueue, kAudioQueueProperty_IsRunning, &isRunning, &size) != noErr) NSLog(@"AudioQueueGetProperty error");
@@ -330,6 +343,15 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ, AudioQu
     }
     
     return;
+}
+
+- (void) handleNetworkChange:(NSNotification *)notice
+{
+    NetworkStatus remoteHostStatus = [reachability currentReachabilityStatus];
+    
+    if (remoteHostStatus != ReachableViaWiFi) {
+        [self.delegate packetLost:1];
+    }
 }
 
 @end

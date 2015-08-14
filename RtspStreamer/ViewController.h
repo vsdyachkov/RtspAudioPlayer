@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RtspAudioPlayer.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <RtspAudioPlayerProtocol>
 
 @end
 

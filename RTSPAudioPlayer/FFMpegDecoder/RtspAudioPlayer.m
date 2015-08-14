@@ -15,7 +15,7 @@
 #endif
 
 #define kNumAQBufs 1
-#define kAudioBufferSeconds 1024
+#define kAudioBufferSeconds 8000
 
 
 typedef enum _AUDIO_STATE {
@@ -58,12 +58,8 @@ AudioQueueRef audioQueue;
 {
     NSLog(@"DEALLOC");
     
-    
     // Free the packet that was allocated by av_read_frame
     av_free_packet(&packet);
-    
-    // Close the codec
-    //if (pCodecCtx) avcodec_close(pCodecCtx);
     
     // Close the video file
     if (pFormatCtx) avformat_close_input(&pFormatCtx);
@@ -97,8 +93,9 @@ AudioQueueRef audioQueue;
     
     AVDictionary *opts = 0;
     av_dict_set(&opts, "rtsp_transport", "tcp", 0);
-    av_dict_set(&opts, "buffer_size", "50000", 0);
-    
+    av_dict_set(&opts, "rtsp_flags", "prefer_tcp", 0);
+//    av_dict_set(&opts, "stimeout", "1000000", 0); // 1 sec (in microseconds)
+
     // Open an input stream and read the header
     if (avformat_open_input(&pFormatCtx, [url UTF8String], NULL, &opts) != 0)
     {
@@ -190,7 +187,7 @@ AudioQueueRef audioQueue;
     state = AUDIO_STATE_PLAYING;
     
     NSDate* intervalDate = [NSDate date];
-    NSMutableData* intervalData = [NSMutableData new];
+    NSMutableData* intervalData = [NSMutableData data];
     
     while (state == AUDIO_STATE_PLAYING && av_read_frame(pFormatCtx, &packet) >= 0 && !stop)
     {
@@ -202,16 +199,14 @@ AudioQueueRef audioQueue;
         [audioPacketQueueLock unlock];
         
         [intervalData appendData:data];
-        if ([[NSDate date] timeIntervalSinceDate:intervalDate] >= 1.0) {
-            NSLog(@"Traffic: %.1f kbit/sec", (float)intervalData.length/1000);
-            intervalData = [NSMutableData new];
+        if ([[NSDate date] timeIntervalSinceDate:intervalDate] >= 1) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate trafficUpdate:(float)intervalData.length/1000];
+            });
             intervalDate = [NSDate date];
+            intervalData = [NSMutableData data];
         }
-        
-//        if (audioPacketQueueSize) {
-//            NSLog(@"audioPacketQueueSize: %d", audioPacketQueueSize);
-//        }
-        
+
         if (emptyAudioBuffer && state == AUDIO_STATE_PLAYING) {
             [self enqueueBuffer:emptyAudioBuffer];
         }
@@ -221,17 +216,6 @@ AudioQueueRef audioQueue;
     
     return;
 }
-
-//NSTimeInterval  AQPlayer::getTotalDuration()
-//{
-//    UInt64 nPackets;
-//    UInt32 propsize = sizeof(nPackets);
-//    
-//    XThrowIfError (AudioFileGetProperty(mAudioFile, kAudioFilePropertyAudioDataPacketCount, &propsize, &nPackets), "kAudioFilePropertyAudioDataPacketCount");
-//    Float64 fileDuration = (nPackets * mDataFormat.mFramesPerPacket) / mDataFormat.mSampleRate;
-//    
-//    return fileDuration;
-//}
 
 void audioQueueOutputCallback(void *inClientData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer)
 {
@@ -277,7 +261,10 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ, AudioQu
     
     if (_packet && llabs(lastPts - _packet->pts) > _packet->duration * 2)
     {
-        NSLog(@"Missed %lld packets", llabs(lastPts - _packet->pts)/1000);
+        int lostPacket = (int)llabs(lastPts - _packet->pts)/1000;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate packetLost:lostPacket];
+        });
         stop = YES;
     }
     
@@ -315,7 +302,7 @@ void audioQueueIsRunningCallback(void *inClientData, AudioQueueRef inAQ, AudioQu
                     bufferStartTime.mSampleTime = tempPacket->dts * audioCodecContext->frame_size;
                     bufferStartTime.mFlags = kAudioTimeStampSampleTimeValid;
                 }
-                //NSLog(@"%d", buffer->mAudioData == NULL);
+                
                 memcpy(buffer->mAudioData + buffer->mAudioDataByteSize, tempPacket->data, tempPacket->size);
                 buffer->mPacketDescriptions[buffer->mPacketDescriptionCount].mStartOffset = buffer->mAudioDataByteSize;
                 buffer->mPacketDescriptions[buffer->mPacketDescriptionCount].mDataByteSize = tempPacket->size;

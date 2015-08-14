@@ -8,9 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol RtspAudioPlayerProtocol <NSObject>
+
+- (void) packetLost:(int)lostPackets;
+- (void) trafficUpdate:(float)traffic;
+
+@end
+
 @interface RtspAudioPlayer : NSObject
 
 - (id) initWithUrl:(NSString *)url;
 - (void) play;
 
+@property (nonatomic, strong) id <RtspAudioPlayerProtocol> delegate;
+
 @end
+

@@ -10,6 +10,8 @@
 	<string>RtspStreamer</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>A7C53694BCFBB2241DEB7558C91B8BD87678B77D</key>
+		<string>https://bitbucket.org/company/rtsp-ios-audio-streaming.git</string>
 		<key>FA908AA999AD89E8D0154174B576570A2E856C5D</key>
 		<string>https://github.com/vsdyachkov/RTSP-iOS-audio-streaming.git</string>
 	</dict>
@@ -17,17 +19,27 @@
 	<string>RtspStreamer.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>FA908AA999AD89E8D0154174B576570A2E856C5D</key>
+		<key>A7C53694BCFBB2241DEB7558C91B8BD87678B77D</key>
 		<string>../..</string>
+		<key>FA908AA999AD89E8D0154174B576570A2E856C5D</key>
+		<string>../../../RtspStreamer</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/vsdyachkov/RTSP-iOS-audio-streaming.git</string>
+	<string>https://bitbucket.org/company/rtsp-ios-audio-streaming.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>FA908AA999AD89E8D0154174B576570A2E856C5D</string>
+	<string>A7C53694BCFBB2241DEB7558C91B8BD87678B77D</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A7C53694BCFBB2241DEB7558C91B8BD87678B77D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>%D0%9A%D0%BE%D0%BF%D0%B8%D1%8F%20RtspStreamer</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

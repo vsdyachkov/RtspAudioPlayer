@@ -72,7 +72,7 @@
 {
 //    if ([self isHeadsetPluggedIn])
 //    {
-        player = [[RtspAudioPlayer alloc] initWithUrl:@"rtsp://192.168.110.192:1935/live/myStream"];
+        player = [[RtspAudioPlayer alloc] initWithUrl:@"rtsp://192.168.1.30:1935/live/myStream"];
         player.delegate = self;
         [player play];
         player = nil;

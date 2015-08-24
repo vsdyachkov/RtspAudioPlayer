@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A7C53694BCFBB2241DEB7558C91B8BD87678B77D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "A7C53694BCFBB2241DEB7558C91B8BD87678B77D" : 0,
+    "FA908AA999AD89E8D0154174B576570A2E856C5D" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "8A833154-1864-432E-8D30-1106EE45506A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "A7C53694BCFBB2241DEB7558C91B8BD87678B77D" : "%D0%9A%D0%BE%D0%BF%D0%B8%D1%8F%20RtspStreamer\/",
+    "FA908AA999AD89E8D0154174B576570A2E856C5D" : "RtspStreamer"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "RtspStreamer",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 203,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "RtspStreamer.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/company\/rtsp-ios-audio-streaming.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A7C53694BCFBB2241DEB7558C91B8BD87678B77D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/vsdyachkov\/RTSP-iOS-audio-streaming.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FA908AA999AD89E8D0154174B576570A2E856C5D"
+    }
+  ]
+}

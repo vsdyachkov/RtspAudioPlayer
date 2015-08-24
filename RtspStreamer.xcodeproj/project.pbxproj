@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		575F26D81B8B75280029DC9B /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFA11B710DA200854848 /* libavformat.a */; };
+		575F26D91B8B777D0029DC9B /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFA21B710DA200854848 /* libavutil.a */; };
+		575F26DA1B8B77F80029DC9B /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BF9E1B710DA200854848 /* libavcodec.a */; };
+		575F26DB1B8B78060029DC9B /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFA31B710DA200854848 /* libswresample.a */; };
 		57C0BF0D1B710D6800854848 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C0BF0C1B710D6800854848 /* main.m */; };
 		57C0BF101B710D6800854848 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C0BF0F1B710D6800854848 /* AppDelegate.m */; };
 		57C0BF131B710D6800854848 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C0BF121B710D6800854848 /* ViewController.m */; };
@@ -14,22 +18,9 @@
 		57C0BF181B710D6800854848 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57C0BF171B710D6800854848 /* Images.xcassets */; };
 		57C0BF1B1B710D6800854848 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57C0BF191B710D6800854848 /* LaunchScreen.xib */; };
 		57C0BFA61B710DA200854848 /* RtspAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C0BF351B710DA200854848 /* RtspAudioPlayer.m */; };
-		57C0BFA81B710DA200854848 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BF9E1B710DA200854848 /* libavcodec.a */; };
-		57C0BFA91B710DA200854848 /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BF9F1B710DA200854848 /* libavdevice.a */; };
-		57C0BFAA1B710DA200854848 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFA01B710DA200854848 /* libavfilter.a */; };
-		57C0BFAB1B710DA200854848 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFA11B710DA200854848 /* libavformat.a */; };
-		57C0BFAC1B710DA200854848 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFA21B710DA200854848 /* libavutil.a */; };
-		57C0BFAD1B710DA200854848 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFA31B710DA200854848 /* libswresample.a */; };
-		57C0BFAE1B710DA200854848 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFA41B710DA200854848 /* libswscale.a */; };
-		57C0BFB11B71122000854848 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFB01B71122000854848 /* AudioToolbox.framework */; };
-		57C0BFB31B71122B00854848 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFB21B71122B00854848 /* CoreVideo.framework */; };
-		57C0BFB51B71123200854848 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFB41B71123200854848 /* CoreImage.framework */; };
-		57C0BFB71B71123A00854848 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFB61B71123A00854848 /* CoreMedia.framework */; };
-		57C0BFB91B71124800854848 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFB81B71124800854848 /* QuartzCore.framework */; };
 		57C0BFBB1B71124F00854848 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFBA1B71124F00854848 /* AVFoundation.framework */; };
 		57C0BFBD1B71125B00854848 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFBC1B71125B00854848 /* UIKit.framework */; };
 		57C0BFBF1B71126600854848 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFBE1B71126600854848 /* Foundation.framework */; };
-		57C0BFC11B71127200854848 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFC01B71127200854848 /* CoreGraphics.framework */; };
 		57C0BFC51B71139800854848 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFC41B71139800854848 /* libiconv.dylib */; };
 		57C0BFC71B7113A000854848 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFC61B7113A000854848 /* libz.dylib */; };
 		57C0BFC91B7113B700854848 /* libbz2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57C0BFC81B7113B700854848 /* libbz2.dylib */; };
@@ -148,15 +139,9 @@
 		57C0BFA21B710DA200854848 /* libavutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavutil.a; sourceTree = "<group>"; };
 		57C0BFA31B710DA200854848 /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswresample.a; sourceTree = "<group>"; };
 		57C0BFA41B710DA200854848 /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswscale.a; sourceTree = "<group>"; };
-		57C0BFB01B71122000854848 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		57C0BFB21B71122B00854848 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
-		57C0BFB41B71123200854848 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
-		57C0BFB61B71123A00854848 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		57C0BFB81B71124800854848 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		57C0BFBA1B71124F00854848 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		57C0BFBC1B71125B00854848 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		57C0BFBE1B71126600854848 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		57C0BFC01B71127200854848 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		57C0BFC41B71139800854848 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		57C0BFC61B7113A000854848 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		57C0BFC81B7113B700854848 /* libbz2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbz2.dylib; path = usr/lib/libbz2.dylib; sourceTree = SDKROOT; };
@@ -172,22 +157,13 @@
 				57C0BFC91B7113B700854848 /* libbz2.dylib in Frameworks */,
 				57C0BFC71B7113A000854848 /* libz.dylib in Frameworks */,
 				57C0BFC51B71139800854848 /* libiconv.dylib in Frameworks */,
-				57C0BFC11B71127200854848 /* CoreGraphics.framework in Frameworks */,
 				57C0BFBF1B71126600854848 /* Foundation.framework in Frameworks */,
 				57C0BFBD1B71125B00854848 /* UIKit.framework in Frameworks */,
 				57C0BFBB1B71124F00854848 /* AVFoundation.framework in Frameworks */,
-				57C0BFB91B71124800854848 /* QuartzCore.framework in Frameworks */,
-				57C0BFB71B71123A00854848 /* CoreMedia.framework in Frameworks */,
-				57C0BFB51B71123200854848 /* CoreImage.framework in Frameworks */,
-				57C0BFB31B71122B00854848 /* CoreVideo.framework in Frameworks */,
-				57C0BFB11B71122000854848 /* AudioToolbox.framework in Frameworks */,
-				57C0BFAC1B710DA200854848 /* libavutil.a in Frameworks */,
-				57C0BFAE1B710DA200854848 /* libswscale.a in Frameworks */,
-				57C0BFAA1B710DA200854848 /* libavfilter.a in Frameworks */,
-				57C0BFA91B710DA200854848 /* libavdevice.a in Frameworks */,
-				57C0BFA81B710DA200854848 /* libavcodec.a in Frameworks */,
-				57C0BFAD1B710DA200854848 /* libswresample.a in Frameworks */,
-				57C0BFAB1B710DA200854848 /* libavformat.a in Frameworks */,
+				575F26DA1B8B77F80029DC9B /* libavcodec.a in Frameworks */,
+				575F26D81B8B75280029DC9B /* libavformat.a in Frameworks */,
+				575F26DB1B8B78060029DC9B /* libswresample.a in Frameworks */,
+				575F26D91B8B777D0029DC9B /* libavutil.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,15 +415,9 @@
 				57C0BFC81B7113B700854848 /* libbz2.dylib */,
 				57C0BFC61B7113A000854848 /* libz.dylib */,
 				57C0BFC41B71139800854848 /* libiconv.dylib */,
-				57C0BFC01B71127200854848 /* CoreGraphics.framework */,
 				57C0BFBE1B71126600854848 /* Foundation.framework */,
 				57C0BFBC1B71125B00854848 /* UIKit.framework */,
 				57C0BFBA1B71124F00854848 /* AVFoundation.framework */,
-				57C0BFB81B71124800854848 /* QuartzCore.framework */,
-				57C0BFB61B71123A00854848 /* CoreMedia.framework */,
-				57C0BFB41B71123200854848 /* CoreImage.framework */,
-				57C0BFB21B71122B00854848 /* CoreVideo.framework */,
-				57C0BFB01B71122000854848 /* AudioToolbox.framework */,
 			);
 			name = Frameworks;
 			path = RtspStreamer.xcodeproj;
@@ -652,11 +622,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
 				INFOPLIST_FILE = RtspStreamer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/**";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/**",
+					"$(PROJECT_DIR)/RTSPAudioPlayer/FFMpegiOS/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.company.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = RtspStreamer;
 				PROVISIONING_PROFILE = "365f6ab8-a7bd-4e88-8f59-114cf427bc91";
@@ -669,11 +643,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/**";
 				INFOPLIST_FILE = RtspStreamer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/**";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/**",
+					"$(PROJECT_DIR)/RTSPAudioPlayer/FFMpegiOS/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.company.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = RtspStreamer;
 				PROVISIONING_PROFILE = "365f6ab8-a7bd-4e88-8f59-114cf427bc91";
